@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Evento</string>
+
+    <string name="sign_in">Already a member</string>
+    <string name="sign_out">I\'m new here</string>
+
+</resources>
