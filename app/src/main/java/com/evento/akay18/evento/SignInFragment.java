@@ -1,6 +1,7 @@
 package com.evento.akay18.evento;
 
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,10 +41,11 @@ public class SignInFragment extends Fragment {
     private EditText mEmailField, mPwdField;
     private String email, password;
     private View focusView = null;
-    private boolean notEmpty = true, emailVerified;
+    private boolean notEmpty = true;
     private ConnectivityManager mConnMgr;
     private NetworkReceiver mReceiver;
     private TextInputLayout emailIL, pwdIL;
+    private ProgressDialog progress;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -73,6 +76,7 @@ public class SignInFragment extends Fragment {
         mSignInBtn = view.findViewById(R.id.signInBtn);
         emailIL = view.findViewById(R.id.emailInputLayout);
         pwdIL = view.findViewById(R.id.pwdInputLayout);
+        progress = new ProgressDialog(getContext());
 
         //Get Fire Auth Instance
         mAuth = FirebaseAuth.getInstance();
@@ -90,7 +94,6 @@ public class SignInFragment extends Fragment {
                         checkPassword();
                         if (notEmpty) {
                             signIn(email, password);
-                            isEmailVerified();
                         }
                     } else {
                         Snackbar.make(getView(), "Please connect to the Internet", Snackbar.LENGTH_LONG).show();
@@ -103,7 +106,7 @@ public class SignInFragment extends Fragment {
     }
 
     //Email Verification
-    protected void isEmailVerified(){
+    protected void checkIfEmailVerified(){
         mUser = mAuth.getCurrentUser();
         if(mUser != null){
             if(mUser.isEmailVerified()){
@@ -145,30 +148,28 @@ public class SignInFragment extends Fragment {
         }
     }
 
+    //Check email format method
     protected boolean isEmailVerified(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-
+    //Firebase sign in method
     protected void signIn(String email, String password) {
+        progress.setCancelable(false);
+        progress.setTitle("Signing In");
+        progress.setMessage("Please Wait...");
+        progress.show();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                    Log.d("Inside SignIn:", "Login Successful");
+                    checkIfEmailVerified();
                 } else {
-                    Toast.makeText(getActivity(), "Login Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    private void autoSignIn(final String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.i("At autoSignIn", "Successful");
+                    progress.dismiss();
+                    Log.d("Inside SignIn:", "Login Failed");
+                    Snackbar.make(getView(), task.getException().getMessage(), Snackbar.LENGTH_LONG).show();
                 }
             }
         });

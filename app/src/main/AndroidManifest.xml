@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".EmailVerification"></activity>
+        <activity android:name=".EmailVerification" />
+        <activity android:name=".NotifyUser"></activity>
     </application>
 
 </manifest>

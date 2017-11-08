@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,10 +72,7 @@ public class SignUpFragment extends Fragment {
         mobIL = view.findViewById(R.id.mobInputField);
 
         //Progress Dialog
-        progress = new ProgressDialog(getActivity());
-        progress.setTitle("Signing Up");
-        progress.setMessage("Please Wait...");
-        progress.setCancelable(false);
+        progress = new ProgressDialog(getContext());
 
         //On click sign up
         mSignUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +89,6 @@ public class SignUpFragment extends Fragment {
                 checkCnfPwd();
                 checkMob();
                 if(validName && validEmail && validPwd && validCnf && validMob){
-                    progress.show();
                     createAccount(email, password);
                     autoSignIn(email, password);
                     signOut();
@@ -145,7 +142,7 @@ public class SignUpFragment extends Fragment {
         }
     }
 
-    //Check Confrim Password
+    //Check Confirm Password
     private void checkCnfPwd(){
         if(password.equals(cnfPwd)){
             validCnf = true;
@@ -187,14 +184,18 @@ public class SignUpFragment extends Fragment {
 
     //Create account method
     private void createAccount(String email, String password) {
+        progress.setTitle("Signing Up");
+        progress.setMessage("Please Wait...");
+        progress.setCancelable(false);
+        progress.show();
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getActivity(), "Sign up successful", Toast.LENGTH_LONG).show();
+                    Log.i("Inside Create Account:" , "Sign up successful");
                     progress.dismiss();
                 } else {
-                    Toast.makeText(getActivity(), "Sign up failed. Please try again!", Toast.LENGTH_SHORT).show();
+                    Log.i("Inside Create Account:" , "Sign up failed");
                     progress.dismiss();
                 }
             }
@@ -203,20 +204,28 @@ public class SignUpFragment extends Fragment {
 
     //Auto sign in to save data at firebase database
     private void autoSignIn(final String email, String password) {
+        progress.setTitle("Sending verification email");
+        progress.setMessage("Please Wait...");
+        progress.setCancelable(false);
+        progress.show();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    progress.dismiss();
                     mUser = mAuth.getCurrentUser();
                     mUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(getActivity(), "Please verify us your email address:" + email, Toast.LENGTH_SHORT).show();
+                                Snackbar.make(getView(), "Verification link sent. Please confirm!", Snackbar.LENGTH_SHORT).show();
                             }
                         }
                     });
                     saveUserData(mUser);
+                } else {
+                    progress.dismiss();
+                    Snackbar.make(getView(), "Something went wrong. Please try again!", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -232,8 +241,7 @@ public class SignUpFragment extends Fragment {
     //Sign out method
     private void signOut(){
         mAuth.signOut();
-        Toast.makeText(getActivity(), "Please Login Here", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(getActivity(), SignInActivity.class);
+        Intent intent = new Intent(getActivity(), NotifyUser.class);
         startActivity(intent);
     }
 }
