@@ -1,56 +1,63 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.evento.akay18.evento.SignInFragment">
 
-    <EditText
-        android:id="@+id/emailField"
-        android:layout_width="250dp"
+    <android.support.design.widget.TextInputLayout
+        app:errorEnabled="true"
+        android:id="@+id/emailInputLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_person_black_24dp"
-        android:ems="10"
-        android:hint="  Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32"
-        tools:layout_editor_absoluteX="67dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="15dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="100dp">
 
-    <EditText
-        android:id="@+id/pwdField"
-        android:layout_width="250dp"
+        <EditText
+            android:id="@+id/emailField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:drawableEnd="@drawable/ic_person_black_24dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        app:passwordToggleEnabled="true"
+        android:id="@+id/pwdInputLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-        android:ems="10"
-        android:hint=" Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailField"
-        app:layout_constraintVertical_bias="0.058"
-        tools:layout_editor_absoluteY="233dp"
-        tools:layout_editor_absoluteX="67dp" />
+        android:layout_below="@id/emailInputLayout"
+        app:errorEnabled="true">
+
+        <EditText
+            android:id="@+id/PwdField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+    </android.support.design.widget.TextInputLayout>
+
 
     <Button
-        android:background="@color/colorButton"
-        android:id="@+id/signInBtn"
-        android:layout_width="216dp"
-        android:layout_height="47dp"
+        android:theme="@style/MyButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_weight="1"
         android:text="SIGN IN"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pwdField"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.122"
-        tools:layout_editor_absoluteY="358dp"
-        tools:layout_editor_absoluteX="72dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/signInBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

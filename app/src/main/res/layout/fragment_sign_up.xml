@@ -1,56 +1,109 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.evento.akay18.evento.SignUpFragment">
 
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/nameInputField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:errorEnabled="true">
+
+        <EditText
+            android:drawableEnd="@drawable/ic_person_black_24dp"
+            android:id="@+id/nameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/emailInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/nameInputField"
+        app:errorEnabled="true">
+
+        <EditText
+            android:id="@+id/emailField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableEnd="@drawable/ic_email_black_24dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        app:passwordToggleEnabled="true"
+        android:id="@+id/pwdInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/emailInputLayout"
+        app:errorEnabled="true">
+
+        <EditText
+            android:id="@+id/pwdField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/pwdInputLayout"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        app:passwordToggleEnabled="true"
+        android:id="@+id/cnfPwdInputField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pwdInputLayout"
+        app:errorEnabled="true">
+
+        <EditText
+            android:id="@+id/cnfPwdField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Confirm Password"
+            android:inputType="textPassword" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_below="@+id/cnfPwdInputField"
+        android:id="@+id/mobInputField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:drawableEnd="@drawable/ic_phone_black_24dp"
+            android:id="@+id/mobField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mobile Number"
+            android:inputType="phone" />
+    </android.support.design.widget.TextInputLayout>
+
     <Button
-        android:background="@color/colorButton"
+        android:theme="@style/MyButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/signUpBtn"
-        android:layout_width="216dp"
-        android:layout_height="43dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="SIGN UP"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pwdField"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.133"
-        tools:layout_editor_absoluteY="341dp"
-        tools:layout_editor_absoluteX="42dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
-    <EditText
-        android:id="@+id/emailField"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_person_black_24dp"
-        android:ems="10"
-        android:hint="  Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.329"
-        tools:layout_editor_absoluteX="42dp"
-        android:layout_marginTop="8dp" />
-
-    <EditText
-        android:id="@+id/pwdField"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-        android:ems="10"
-        android:hint=" Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailField"
-        app:layout_constraintVertical_bias="0.055"
-        tools:layout_editor_absoluteY="267dp"
-        tools:layout_editor_absoluteX="42dp" />
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
