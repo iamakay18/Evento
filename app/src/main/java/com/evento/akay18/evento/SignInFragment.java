@@ -79,6 +79,8 @@ public class SignInFragment extends Fragment {
         //Instantiate Broadcast receiver.
         mReceiver = new NetworkReceiver();
 
+
+
         //Intent Filter will receive System Broadcast.
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         //Register Broadcast receiver with the filter.
