@@ -241,7 +241,7 @@ public class SignUpFragment extends Fragment {
     //Sign out method
     private void signOut(){
         mAuth.signOut();
-        Intent intent = new Intent(getActivity(), NotifyUser.class);
+        Intent intent = new Intent(getActivity(), SignInActivity.class);
         startActivity(intent);
     }
 }

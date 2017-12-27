@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignInActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser currentUser;
     private ViewPager viewPager;
@@ -62,6 +63,11 @@ public class SignInActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+        mUser = mAuth.getCurrentUser();
+        if(mUser != null){
+            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -106,5 +112,11 @@ public class SignInActivity extends AppCompatActivity {
         public int getCount() {
             return 2;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
     }
 }

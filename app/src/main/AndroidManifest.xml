@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SignInActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".EmailVerification" />
-        <activity android:name=".NotifyUser"></activity>
+        <activity android:name=".NotifyUser" />
+        <activity android:name=".AddEventActivity"></activity>
     </application>
 
 </manifest>

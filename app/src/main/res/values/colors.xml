@@ -7,4 +7,13 @@
     <color name="colorGrey">#757575</color>
     <color name="colorButton">#80CBC4</color>
     <color name="colorBack">#F0F0F0</color>
+
+    //BNB
+    <color name="item_feed">#26c6da</color>
+    <color name="item_profile">#66bb6a</color>
+    <color name="item_set">#607D8B</color>
+
+    //fab_color
+    <color name="color_fab">#E91E63</color>
+
 </resources>

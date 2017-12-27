@@ -60,4 +60,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pwdInputLayout"
+        android:layout_marginEnd="72dp"
+        android:layout_marginTop="68dp"
+        android:layout_toStartOf="@+id/signInBtn"
+        android:text="Button" />
+
 </RelativeLayout>
