@@ -62,7 +62,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+        //mAuth.addAuthStateListener(mAuthListener);
         mUser = mAuth.getCurrentUser();
         if(mUser != null){
             Intent intent = new Intent(SignInActivity.this, MainActivity.class);

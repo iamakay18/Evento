@@ -1,6 +1,7 @@
 package com.evento.akay18.evento;
 
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -34,7 +35,9 @@ public class FeedFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddEventActivity.class);
+                //ActivityOptions options = ActivityOptions.makeCustomAnimation(view,R.anim.,)
                 startActivity(intent);
+
             }
         });
 

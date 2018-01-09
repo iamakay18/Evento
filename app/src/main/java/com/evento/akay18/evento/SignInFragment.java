@@ -29,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -66,7 +67,6 @@ public class SignInFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class SignInFragment extends Fragment {
         button = view.findViewById(R.id.button4);
 
         //Get Fire Auth Instance
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
 
         //Configure Google Sign
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -135,6 +135,15 @@ public class SignInFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth = FirebaseAuth.getInstance();
+        if(mAuth == null)
+            Toast.makeText(getActivity(), "Dikkat", Toast.LENGTH_SHORT).show();
+            Log.i("Prob","Yaha h");
     }
 
     // [START onactivityresult]
@@ -284,6 +293,9 @@ public class SignInFragment extends Fragment {
         progress.setTitle("Signing In");
         progress.setMessage("Please Wait...");
         progress.show();
+        if(mAuth == null)
+            Log.d("CHECK", "mAuth");
+
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -296,6 +308,11 @@ public class SignInFragment extends Fragment {
                     Log.d("Inside SignIn:", "Login Failed");
                     Snackbar.make(getView(), task.getException().getMessage(), Snackbar.LENGTH_LONG).show();
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("CHECK", e.getMessage().toString());
             }
         });
     }
